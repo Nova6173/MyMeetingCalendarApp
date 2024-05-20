@@ -1,0 +1,30 @@
+CREATE SCHEMA IF NOT EXISTS meeting_calendar_db;
+USE meeting_calendar_db;
+
+CREATE TABLE users(
+username VARCHAR(255) NOT NULL PRIMARY KEY,
+_password VARCHAR(255) NOT NULL,
+expired TINYINT DEFAULT FAlSE,
+CREATE_DATE DATETIME DEFAULT NOW()
+ );
+
+ CREATE TABLE calendars(
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ username VARCHAR(255) NOT NULL,
+ title VARCHAR(255) NOT NULL,
+ CREATE_DATE DATETIME DEFAULT NOW(),
+ FOREIGN KEY (username) REFERENCES users(username)
+ );
+
+ CREATE TABLE meeting(
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ title VARCHAR(255) NOT NULL,
+ start_time DATETIME NOT NULL,
+ end_time DATETIME NOT NULL,
+ _description TEXT,
+  CREATE_DATE DATETIME DEFAULT NOW(),
+ calendar_id INT NOT NULL,
+ FOREIGN KEY (calendar_id) REFERENCES calendars(id)
+ );
+
+ select * from users;
